@@ -7,8 +7,8 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -144,
-        0
+        -112,
+        -112
       ],
       "id": "9b90650b-22e1-42f0-8ae7-f8a3819701b1",
       "name": "When chat message received",
@@ -17,30 +17,32 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $('When chat message received').item.json.chatInput }}",
+        "text": "={{ $json.output || $('When chat message received').item.json.chatInput }}",
         "options": {
-          "systemMessage": "You are a master agent and you have access to the following tools : \n\n---\nTools Available : \n- CreateFile : Creates a file. Valid usage is to create a file with a valid extension.\n- OverWriteFile : Overwrite the file with new content.\n- CreateDirectory : Create a directory\n- GetFileList : Returns all the files in the mentioned directory (/home/node buy default). Note : This will also return the directories.\n- GetFullFileContent : This will return the full content of the file. You must specify the full path if you want expected result.\n- ExecuteNPMCommands : Run any npm command.\n---\n\nYou are to effeciently use the tools available to you to answer the user's query. Think about what the user wants and also think about what tools will be best for what use case. ",
-          "maxIterations": 1000
+          "systemMessage": "You are a AI agent and you have access to the following tools : \n\n---\nTools Available : \n- CreateFile : Creates a file. Valid usage is to create a file with a valid extension.\n- OverWriteFile : Overwrite the file with new content.\n- CreateDirectory : Create a directory\n- GetFileList : Returns all the files in the mentioned directory (/home/node buy default). Note : This will also return the directories.\n- GetFullFileContent : This will return the full content of the file. You must specify the full path if you want expected result.\n- ExecuteNPMCommands : Run any npm command.\n---\n\nYou are to efficiently use the tools available to you to alter the files. Think about what the prompt wants and also think about what tools will be best for what use case. ",
+          "maxIterations": 100
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.1,
       "position": [
-        656,
-        0
+        608,
+        -192
       ],
       "id": "bc8c480e-0eb0-4192-96a0-987519989f37",
       "name": "AI Agent"
     },
     {
       "parameters": {
-        "options": {}
+        "options": {
+          "topP": 0.8
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        304,
-        224
+        320,
+        32
       ],
       "id": "a81de57d-fc30-4ff1-ac62-5387279bb9b6",
       "name": "Google Gemini Chat Model",
@@ -59,8 +61,8 @@
       "type": "n8n-nodes-base.executeCommandTool",
       "typeVersion": 1,
       "position": [
-        560,
-        224
+        448,
+        32
       ],
       "id": "0e16572e-5921-4d4a-aa67-0c5046a1b008",
       "name": "CreateFile"
@@ -73,8 +75,8 @@
       "type": "n8n-nodes-base.executeCommandTool",
       "typeVersion": 1,
       "position": [
-        688,
-        224
+        576,
+        32
       ],
       "id": "8c4e8d1b-96a5-4548-b9e6-cb89006a6dae",
       "name": "OverWriteFile"
@@ -87,8 +89,8 @@
       "type": "n8n-nodes-base.executeCommandTool",
       "typeVersion": 1,
       "position": [
-        816,
-        224
+        704,
+        32
       ],
       "id": "a6d12f1a-bc8e-4530-bb41-35586f9fcec4",
       "name": "CreateDirectory"
@@ -101,8 +103,8 @@
       "type": "n8n-nodes-base.executeCommandTool",
       "typeVersion": 1,
       "position": [
-        944,
-        224
+        832,
+        32
       ],
       "id": "f2082783-6ec8-41a2-bb49-c377d1fac5f2",
       "name": "GetFileList"
@@ -115,8 +117,8 @@
       "type": "n8n-nodes-base.executeCommandTool",
       "typeVersion": 1,
       "position": [
-        1072,
-        224
+        960,
+        32
       ],
       "id": "f48e0b74-9230-4c43-b5a5-ba5a5a054caa",
       "name": "GetFullFileContent"
@@ -129,8 +131,8 @@
       "type": "n8n-nodes-base.executeCommandTool",
       "typeVersion": 1,
       "position": [
-        1200,
-        224
+        1088,
+        32
       ],
       "id": "ca2d8db2-30d0-455f-ad83-dc581449615b",
       "name": "ExecuteNPMCommands"
@@ -142,11 +144,30 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        80,
-        0
+        96,
+        -112
       ],
       "id": "98f89361-f325-42d3-bc95-f6db4549287e",
       "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "output"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        -272
+      ],
+      "id": "44e09a23-46a0-4f6d-830f-880e906257dc",
+      "name": "When Executed by Another Workflow"
     }
   ],
   "connections": {
@@ -244,6 +265,17 @@
       ]
     },
     "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
       "main": [
         [
           {
