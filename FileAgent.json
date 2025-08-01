@@ -8,7 +8,7 @@
       "typeVersion": 1.1,
       "position": [
         -112,
-        -112
+        -272
       ],
       "id": "9b90650b-22e1-42f0-8ae7-f8a3819701b1",
       "name": "When chat message received",
@@ -26,8 +26,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.1,
       "position": [
-        608,
-        -192
+        560,
+        -176
       ],
       "id": "bc8c480e-0eb0-4192-96a0-987519989f37",
       "name": "AI Agent"
@@ -41,8 +41,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        320,
-        32
+        336,
+        48
       ],
       "id": "a81de57d-fc30-4ff1-ac62-5387279bb9b6",
       "name": "Google Gemini Chat Model",
@@ -61,8 +61,8 @@
       "type": "n8n-nodes-base.executeCommandTool",
       "typeVersion": 1,
       "position": [
-        448,
-        32
+        464,
+        48
       ],
       "id": "0e16572e-5921-4d4a-aa67-0c5046a1b008",
       "name": "CreateFile"
@@ -75,8 +75,8 @@
       "type": "n8n-nodes-base.executeCommandTool",
       "typeVersion": 1,
       "position": [
-        576,
-        32
+        592,
+        48
       ],
       "id": "8c4e8d1b-96a5-4548-b9e6-cb89006a6dae",
       "name": "OverWriteFile"
@@ -89,8 +89,8 @@
       "type": "n8n-nodes-base.executeCommandTool",
       "typeVersion": 1,
       "position": [
-        704,
-        32
+        720,
+        48
       ],
       "id": "a6d12f1a-bc8e-4530-bb41-35586f9fcec4",
       "name": "CreateDirectory"
@@ -103,8 +103,8 @@
       "type": "n8n-nodes-base.executeCommandTool",
       "typeVersion": 1,
       "position": [
-        832,
-        32
+        848,
+        48
       ],
       "id": "f2082783-6ec8-41a2-bb49-c377d1fac5f2",
       "name": "GetFileList"
@@ -117,25 +117,11 @@
       "type": "n8n-nodes-base.executeCommandTool",
       "typeVersion": 1,
       "position": [
-        960,
-        32
+        976,
+        48
       ],
       "id": "f48e0b74-9230-4c43-b5a5-ba5a5a054caa",
       "name": "GetFullFileContent"
-    },
-    {
-      "parameters": {
-        "toolDescription": "Use this tool to run any npm command. \nNote : \nyou are only supposed to give what comes after npm. \nExample : \ninstall\naudit\n\n- npm is already prewritten in the command",
-        "command": "=npm {{ $fromAI('Command', ``, 'string') }}"
-      },
-      "type": "n8n-nodes-base.executeCommandTool",
-      "typeVersion": 1,
-      "position": [
-        1088,
-        32
-      ],
-      "id": "ca2d8db2-30d0-455f-ad83-dc581449615b",
-      "name": "ExecuteNPMCommands"
     },
     {
       "parameters": {
@@ -144,8 +130,8 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        96,
-        -112
+        112,
+        -272
       ],
       "id": "98f89361-f325-42d3-bc95-f6db4549287e",
       "name": "Execute Command"
@@ -163,8 +149,8 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        80,
-        -272
+        112,
+        -80
       ],
       "id": "44e09a23-46a0-4f6d-830f-880e906257dc",
       "name": "When Executed by Another Workflow"
@@ -243,17 +229,6 @@
       ]
     },
     "GetFullFileContent": {
-      "ai_tool": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "ExecuteNPMCommands": {
       "ai_tool": [
         [
           {
